@@ -82,6 +82,14 @@ public class Ilha {
     this.medicoes.add(medicao);
   }
 
+  public void atualizaMedicao(int id, Medicao medicao) {
+    this.medicoes.set(id, medicao);
+  }
+
+  public void deletaMedicao(int id) {
+    this.medicoes.remove(id);
+  }
+  
   public int idDaUltimaMedicao() {
     return this.getMedicoes().size();
   }
