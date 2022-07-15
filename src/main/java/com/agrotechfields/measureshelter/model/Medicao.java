@@ -1,7 +1,5 @@
 package com.agrotechfields.measureshelter.model;
 
-import org.springframework.data.annotation.Id;
-
 public class Medicao {
 
   private float temperatura;
