@@ -1,9 +1,12 @@
 package com.agrotechfields.measureshelter.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.agrotechfields.measureshelter.dto.ListaMedicoesDto;
 import com.agrotechfields.measureshelter.dto.MedicaoDto;
 import com.agrotechfields.measureshelter.model.Ilha;
 import com.agrotechfields.measureshelter.model.Medicao;
@@ -20,7 +23,18 @@ public class MedicaoService {
     Ilha ilha = ilhaRepository.findById(id).get();
     ilha.adicionaMedicao(medicao);
     ilhaRepository.save(ilha);
-    return new MedicaoDto(0, medicao, id);
+    return new MedicaoDto(ilha.idDaUltimaMedicao(), medicao, id);
+  }
+
+
+  public List<ListaMedicoesDto> listar() {
+    List<Ilha> ilhas = ilhaRepository.findAll();
+    List<ListaMedicoesDto> listaMedicoes = ilhas
+      .stream()
+      .filter(i -> !i.getMedicoes().isEmpty())
+      .map(i -> new ListaMedicoesDto(i.getId(), i.getMedicoes()))
+      .collect(Collectors.toList());
+    return listaMedicoes;
   }
 
 }
