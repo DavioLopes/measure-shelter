@@ -41,4 +41,11 @@ public class MedicaoService {
     Ilha ilha = ilhaRepository.findById(ilhaId).get();
     return new ListaMedicoesDto(ilhaId, ilha.getMedicoes());
   }
+
+  public MedicaoDto buscaMedicaoPorId(String ilhaId, int id) {
+    Ilha ilha = ilhaRepository.findById(ilhaId).get();
+    int idMedicao = id - 1;
+    Medicao medicao = ilha.getMedicoes().get(idMedicao);
+    return new MedicaoDto(id, medicao, ilhaId);
+  }
 }

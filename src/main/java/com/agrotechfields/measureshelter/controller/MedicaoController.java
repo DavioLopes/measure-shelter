@@ -25,18 +25,30 @@ public class MedicaoController {
   @PostMapping("/ilhas/{ilhaId}/medicoes")
   public ResponseEntity<MedicaoDto> cadastrar(@PathVariable String ilhaId, @RequestBody Medicao medicao) {
     MedicaoDto medicaoDto = medicaoService.cadastrar(ilhaId, medicao);
+    
     return ResponseEntity.status(201).body(medicaoDto);
   }
 
   @GetMapping("/medicoes")
   public ResponseEntity<List<ListaMedicoesDto>> listar() {
     List<ListaMedicoesDto> medicoesDto = medicaoService.listar();
+    
     return ResponseEntity.ok(medicoesDto);
   }
 
   @GetMapping("/ilhas/{ilhaId}/medicoes")
   public ResponseEntity<ListaMedicoesDto> listarMedicoesPorIlha(@PathVariable String ilhaId) {
     ListaMedicoesDto medicoesDto = medicaoService.listaMedicoesPorIlha(ilhaId);
+    
+    return ResponseEntity.ok(medicoesDto);
+  }
+
+  @GetMapping("/ilhas/{ilhaId}/medicoes/{id}")
+  public ResponseEntity<MedicaoDto> buscaMedicaoPorId(@PathVariable("ilhaId") String ilhaId, 
+    @PathVariable("id") int id) {
+
+    MedicaoDto medicoesDto = medicaoService.buscaMedicaoPorId(ilhaId, id);
+    
     return ResponseEntity.ok(medicoesDto);
   } 
 }
