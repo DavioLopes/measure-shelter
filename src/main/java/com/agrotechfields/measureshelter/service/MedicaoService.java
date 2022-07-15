@@ -45,7 +45,7 @@ public class MedicaoService {
     return new ListaMedicoesDto(ilhaId, ilha.getMedicoes());
   }
 
-  public MedicaoDto buscaporId(String ilhaId, int id) {
+  public MedicaoDto buscarporId(String ilhaId, int id) {
     Ilha ilha = ilhaRepository.findById(ilhaId).get();
     int idMedicao = id - 1;
     Medicao medicao = ilha.getMedicoes().get(idMedicao);
@@ -61,6 +61,14 @@ public class MedicaoService {
     ilhaRepository.save(ilha);
 
     return new MedicaoDto(id, medicao, ilhaId);
+  }
+
+  public void remover(String ilhaId, int id) {
+    Ilha ilha = ilhaRepository.findById(ilhaId).get();
+    int idMedicao = id - 1;
+    
+    ilha.deletaMedicao(idMedicao);
+    ilhaRepository.save(ilha);
   }
   
 }

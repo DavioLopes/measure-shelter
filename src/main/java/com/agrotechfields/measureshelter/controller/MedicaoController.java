@@ -3,12 +3,15 @@ package com.agrotechfields.measureshelter.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agrotechfields.measureshelter.dto.ListaMedicoesDto;
@@ -45,20 +48,28 @@ public class MedicaoController {
   }
 
   @GetMapping("/ilhas/{ilhaId}/medicoes/{id}")
-  public ResponseEntity<MedicaoDto> buscaMedicaoPorId(@PathVariable("ilhaId") String ilhaId, 
+  public ResponseEntity<MedicaoDto> buscarPorId(@PathVariable("ilhaId") String ilhaId, 
     @PathVariable("id") int id) {
 
-    MedicaoDto medicaoDto = medicaoService.buscaporId(ilhaId, id);
+    MedicaoDto medicaoDto = medicaoService.buscarporId(ilhaId, id);
     
     return ResponseEntity.ok(medicaoDto);
   }
 
   @PutMapping("/ilhas/{ilhaId}/medicoes/{id}")
-  public ResponseEntity<MedicaoDto> buscaMedicaoPorId(@PathVariable("ilhaId") String ilhaId, 
+  public ResponseEntity<MedicaoDto> atualizar(@PathVariable("ilhaId") String ilhaId, 
     @PathVariable("id") int id, @RequestBody Medicao medicao) {
 
     MedicaoDto medicoesDto = medicaoService.atualizar(ilhaId, id, medicao);
     
     return ResponseEntity.ok(medicoesDto);
+  }
+
+  @DeleteMapping("/ilhas/{ilhaId}/medicoes/{id}")
+  @ResponseStatus(code = HttpStatus.NO_CONTENT)
+  public void remover(@PathVariable("ilhaId") String ilhaId, 
+    @PathVariable("id") int id) {
+
+    medicaoService.remover(ilhaId, id);
   } 
 }
