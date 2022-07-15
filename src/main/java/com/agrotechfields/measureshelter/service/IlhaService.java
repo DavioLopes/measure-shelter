@@ -47,6 +47,7 @@ public class IlhaService {
     ilhaEncontrada.setMedicoes(ilha.getMedicoes());
     ilhaEncontrada.setNome(ilha.getNome());
     ilhaEncontrada.setOperante(ilha.isOperante());
+    ilhaRepository.save(ilhaEncontrada);
 
     return new IlhaDto(ilhaEncontrada);
   }
@@ -55,6 +56,7 @@ public class IlhaService {
   public IlhaStatusDto status(boolean status, String id) {
     Ilha ilhaEncontrada = ilhaRepository.findById(id).get();
     ilhaEncontrada.setOperante(status);
+    ilhaRepository.save(ilhaEncontrada);
 
     return new IlhaStatusDto(ilhaEncontrada.getId(), ilhaEncontrada.isOperante());
   }
