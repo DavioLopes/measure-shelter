@@ -32,5 +32,11 @@ public class MedicaoController {
   public ResponseEntity<List<ListaMedicoesDto>> listar() {
     List<ListaMedicoesDto> medicoesDto = medicaoService.listar();
     return ResponseEntity.ok(medicoesDto);
+  }
+
+  @GetMapping("/ilhas/{ilhaId}/medicoes")
+  public ResponseEntity<ListaMedicoesDto> listarMedicoesPorIlha(@PathVariable String ilhaId) {
+    ListaMedicoesDto medicoesDto = medicaoService.listaMedicoesPorIlha(ilhaId);
+    return ResponseEntity.ok(medicoesDto);
   } 
 }

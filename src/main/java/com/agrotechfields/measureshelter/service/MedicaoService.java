@@ -1,6 +1,7 @@
 package com.agrotechfields.measureshelter.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,8 @@ public class MedicaoService {
     return listaMedicoes;
   }
 
+  public ListaMedicoesDto listaMedicoesPorIlha(String ilhaId) {
+    Ilha ilha = ilhaRepository.findById(ilhaId).get();
+    return new ListaMedicoesDto(ilhaId, ilha.getMedicoes());
+  }
 }
