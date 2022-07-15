@@ -15,7 +15,6 @@ public class Ilha {
   private String latitude;
   private String longitude;
   private boolean operante;
-  @DBRef
   private List<Medicao> medicoes;
 
   public Ilha() {
@@ -80,4 +79,11 @@ public class Ilha {
     this.medicoes = medicoes;
   }
 
+  public void adicionaMedicao(Medicao medicao) {
+    this.medicoes.add(medicao);
+  }
+
+  public int idDaUltimaMedicao() {
+    return this.getMedicoes().size();
+  }
 }
