@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,7 +48,16 @@ public class MedicaoController {
   public ResponseEntity<MedicaoDto> buscaMedicaoPorId(@PathVariable("ilhaId") String ilhaId, 
     @PathVariable("id") int id) {
 
-    MedicaoDto medicoesDto = medicaoService.buscaMedicaoPorId(ilhaId, id);
+    MedicaoDto medicaoDto = medicaoService.buscaporId(ilhaId, id);
+    
+    return ResponseEntity.ok(medicaoDto);
+  }
+
+  @PutMapping("/ilhas/{ilhaId}/medicoes/{id}")
+  public ResponseEntity<MedicaoDto> buscaMedicaoPorId(@PathVariable("ilhaId") String ilhaId, 
+    @PathVariable("id") int id, @RequestBody Medicao medicao) {
+
+    MedicaoDto medicoesDto = medicaoService.atualizar(ilhaId, id, medicao);
     
     return ResponseEntity.ok(medicoesDto);
   } 

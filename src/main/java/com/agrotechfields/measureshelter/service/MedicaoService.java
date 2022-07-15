@@ -23,6 +23,7 @@ public class MedicaoService {
     Ilha ilha = ilhaRepository.findById(id).get();
     ilha.adicionaMedicao(medicao);
     ilhaRepository.save(ilha);
+    
     return new MedicaoDto(ilha.idDaUltimaMedicao(), medicao, id);
   }
 
@@ -34,18 +35,32 @@ public class MedicaoService {
       .filter(i -> !i.getMedicoes().isEmpty())
       .map(i -> new ListaMedicoesDto(i.getId(), i.getMedicoes()))
       .collect(Collectors.toList());
-    return listaMedicoes;
+    
+      return listaMedicoes;
   }
 
   public ListaMedicoesDto listaMedicoesPorIlha(String ilhaId) {
     Ilha ilha = ilhaRepository.findById(ilhaId).get();
+    
     return new ListaMedicoesDto(ilhaId, ilha.getMedicoes());
   }
 
-  public MedicaoDto buscaMedicaoPorId(String ilhaId, int id) {
+  public MedicaoDto buscaporId(String ilhaId, int id) {
     Ilha ilha = ilhaRepository.findById(ilhaId).get();
     int idMedicao = id - 1;
     Medicao medicao = ilha.getMedicoes().get(idMedicao);
+    
     return new MedicaoDto(id, medicao, ilhaId);
   }
+
+  public MedicaoDto atualizar(String ilhaId, int id,Medicao medicao) {
+    Ilha ilha = ilhaRepository.findById(ilhaId).get();
+    int idMedicao = id - 1;
+    
+    ilha.atualizaMedicao(idMedicao, medicao);
+    ilhaRepository.save(ilha);
+
+    return new MedicaoDto(id, medicao, ilhaId);
+  }
+  
 }
